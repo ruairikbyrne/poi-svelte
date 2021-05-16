@@ -30,7 +30,9 @@
         <th>
             Latitude
         </th>
-
+        <th>
+            Action
+        </th>
         </thead>
         <tbody class="uk-text-left">
             {#if poiList}
@@ -41,7 +43,11 @@
                         <td>{poi.category.categoryName}</td>
                         <td>{poi.latitude}</td>
                         <td>{poi.longitude}</td>
-
+                        <td>
+                            <a href="" class="uk-icon-link uk-margin-small-right" uk-icon="image"></a>
+                            <a href="" class="uk-icon-link uk-margin-small-right" uk-icon="file-edit"></a>
+                            <a href="" class="uk-icon-link" uk-icon="trash"></a>
+                        </td>
                     </tr>
                 {/each}
             {/if}

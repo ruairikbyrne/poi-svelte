@@ -9,8 +9,9 @@
     let latitude = 0;
     let url = "";
     let public_id = "";
-    let selectedCategory = "";
+    let selected;
     let errorMessage = "";
+    let files = [];
 
     onMount(async () => {
         categoryList = await poiService.getCategories();
@@ -20,11 +21,12 @@
 
 
     async function addLocation() {
-        const success = await poiService.addLocation(name, description, longitude, latitude, selectedCategory)
-        console.log("Selected Category: ", selectedCategory);
+        const success = await poiService.addLocation(name, description, longitude, latitude, files[0], public_id, selected)
+        console.log("Selected Category: ", selected);
+        console.log("File object", files[0]);
         if (success) {
 
-       } else {
+        } else {
             errorMessage = "Location not added - some error occurred";
        }
     }
@@ -52,10 +54,10 @@
             <div class="uk-margin">
                 <label class="uk-form-label" for="form-stacked-text">Category</label>
 
-                <select bind:value={selectedCategory}>
+                <select bind:value={selected}>
                     {#if categoryList}
                     {#each categoryList as c}
-                        <option value={c.id} selected="{selectedCategory === c.id}">{c.categoryName}</option>
+                        <option value={c._id}>{c.categoryName}</option>
 
                     {/each}
                     {/if}
@@ -79,7 +81,7 @@
             <div class="uk-margin">
                 <label class="uk-form-label" for="form-stacked-text">Select Image</label>
                 <div class="uk-form-controls">
-                    <input type="file" class="uk-input" name="imagefile" accept="image/png, image/jpeg">
+                    <input bind:files type="file" class="uk-input" name="imagefile" accept="image/png, image/jpeg">
                 </div>
             </div>
 

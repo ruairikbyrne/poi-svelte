@@ -43,9 +43,9 @@ export class POIService {
             return false;
         }
     }
-
     async addLocation(name, description, longitude, latitude, url, public_id, category) {
         try {
+            console.log("URL value: ", url);
             const location = {
                 name: name,
                 description: description,

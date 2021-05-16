@@ -4,7 +4,6 @@
     import crest1 from "/src/assets/crest1.jpg";
     title.set("Visit Wexford");
     subTitle.set("Please Log in");
-
     navBar.set({
         bar: welcomeBar
     });
