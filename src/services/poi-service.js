@@ -4,6 +4,7 @@ import {user} from "../stores";
 export class POIService {
     poiList = [];
     categoryList = [];
+    reviewList = [];
     baseUrl = "";
 
     constructor(baseUrl) {
@@ -33,16 +34,29 @@ export class POIService {
         }
     }
 
+    async getReviews() {
+        try {
+            const response = await axios.get(this.baseUrl + "/api/reviews")
+            this.reviewList = response.data;
+            console.log("hit getReviews");
+
+            return this.reviewList;
+        } catch (error) {
+            console.log("hit error in getReviews", error);
+            return [];
+        }
+    }
+
     async login(email, password) {
         try {
-            console.log("Email " + email);
-            console.log("Password " + password);
             const response = await axios.post(`${this.baseUrl}/api/users/authenticate`, {email, password});
             return response.status == 200;
         } catch (error) {
+            console.log("Svelte Login Error: ", error);
             return false;
         }
     }
+
     async addLocation(name, description, longitude, latitude, url, public_id, category) {
         try {
             console.log("URL value: ", url);
@@ -80,6 +94,23 @@ export class POIService {
         }
     }
 
+    async addReview(reviewDetails, selected) {
+        try {
+            const newReview = {
+                reviewDetail: reviewDetails,
+                rating: selected,
+            };
+            console.log("newReview: ", newReview);
+            const response = await axios.post(this.baseUrl + "/api/reviews", newReview);
+            console.log("Response to review add: ", response);
+            return response.status == 201;
+        } catch (error) {
+            console.log("Add Review Error:", error)
+            return false;
+
+        }
+    }
+
     async updateSettings(firstName, lastName, email, password, id) {
         try {
             const userDetails = {
@@ -91,6 +122,23 @@ export class POIService {
             };
             console.log(userDetails);
             const response = await axios.put(`${this.baseUrl}/api/users/${id}`, userDetails);
+            const newUser = await response.data;
+            user.set(newUser);
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    async signup(firstName, lastName, email, password) {
+        try {
+            const userDetails = {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                password: password,
+            };
+            const response = await axios.post(this.baseUrl + "/api/users", userDetails);
             const newUser = await response.data;
             user.set(newUser);
             return true;

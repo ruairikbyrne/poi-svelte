@@ -7,7 +7,9 @@
   import Navigator from "./components/Navigator.svelte";
   import AddLocation from "./pages/AddLocation.svelte";
   import Categories from "./pages/Categories.svelte";
+  import Reviews from "./pages/Reviews.svelte";
   import Settings from "./pages/Settings.svelte";
+  import Signup from "./pages/Signup.svelte";
   import Router from "svelte-spa-router";
 
   setContext("POIService", new POIService("http://localhost:4000"))
@@ -16,9 +18,11 @@
     "/": Main,
     "/location": POIs,
     "/login": Login,
+    "/signup" : Signup,
     "/logout": Main,
     "/addlocation": AddLocation,
     "/categories": Categories,
+    "/reviews": Reviews,
     "/settings" : Settings,
   }
 

@@ -1,12 +1,15 @@
 <script>
     import {onMount, getContext} from 'svelte'
+    import {selectedLocation} from '../stores'
     const poiService = getContext("POIService");
+
 
     let poiList;
     onMount(async () => {
         poiList = await poiService.getLocations()
 
     })
+
 </script>
 
 <h3 class="uk-heading-divider">
@@ -47,6 +50,8 @@
                             <a href="" class="uk-icon-link uk-margin-small-right" uk-icon="image"></a>
                             <a href="" class="uk-icon-link uk-margin-small-right" uk-icon="file-edit"></a>
                             <a href="" class="uk-icon-link" uk-icon="trash"></a>
+                            <a on:click="{() => ($selectedLocation = poi.id)}" href="/#/reviews/" class="uk-icon-link" uk-icon="comment"></a>
+
                         </td>
                     </tr>
                 {/each}

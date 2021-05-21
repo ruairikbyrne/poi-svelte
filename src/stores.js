@@ -51,6 +51,8 @@ export const navBar = writable({
 });
 export const title = writable("");
 export const subTitle = writable("");
+export const selectedLocation = writable("");
+
 export const user = writable({
     email: "",
     token: ""

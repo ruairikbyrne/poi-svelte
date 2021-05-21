@@ -2,9 +2,11 @@
     import { push } from "svelte-spa-router";
     import {getContext} from "svelte";
     const poiService = getContext("POIService");
+
     let email = "";
     let password = "";
     let errorMessage = "";
+
     async function login() {
         let success = await poiService.login(email, password)
         if (success) {
