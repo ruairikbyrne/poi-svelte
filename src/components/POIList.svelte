@@ -3,12 +3,14 @@
     import {selectedLocation} from '../stores'
     const poiService = getContext("POIService");
 
-
     let poiList;
     onMount(async () => {
         poiList = await poiService.getLocations()
-
     })
+
+    function handleClick(pid) {
+        selectedLocation.set(pid);
+    }
 
 </script>
 
@@ -50,7 +52,7 @@
                             <a href="" class="uk-icon-link uk-margin-small-right" uk-icon="image"></a>
                             <a href="" class="uk-icon-link uk-margin-small-right" uk-icon="file-edit"></a>
                             <a href="" class="uk-icon-link" uk-icon="trash"></a>
-                            <a on:click="{() => ($selectedLocation = poi.id)}" href="/#/reviews/" class="uk-icon-link" uk-icon="comment"></a>
+                            <a on:click={() => handleClick(poi._id)} href="/#/reviews/" class="uk-icon-link" uk-icon="comment"></a>
 
                         </td>
                     </tr>

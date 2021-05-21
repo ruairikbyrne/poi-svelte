@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
     import {getContext, onMount} from 'svelte'
     import {selectedLocation} from "../stores";
-
+    import { user } from "../stores";
 
     const poiService = getContext("POIService");
 
@@ -9,23 +9,31 @@
     let reviewList = [];
     let selectedRating;
     let errorMessage = "";
+    let locationId = "";
+    let userId = "";
 
-    console.log("Selected Location id: ", $selectedLocation);
+
+    //Pull back store value for locationId
+    const unsubscribe1 = selectedLocation.subscribe(value => {
+        locationId = value
+    });
+
+    console.log("Selected Location id: ", locationId);
+    console.log("User id: ", $user._id);
+
     onMount(async () => {
-        reviewList = await poiService.getReviews();
+        reviewList = await poiService.getReviews(locationId);
         console.log("Reviews found", reviewList);
     });
 
     async function addReview() {
-        const success = await poiService.addReview(reviewDetails, selectedRating, $selectedLocation)
-        console.log("Success output:", success);
+        const success = await poiService.addReview(reviewDetails, selectedRating, locationId, $user._id)
         if (success) {
             reviewList = await poiService.getReviews();
 
         } else {
             errorMessage = "Adding new review not completed - some error occurred";
         }
-
     }
 
 
@@ -82,7 +90,7 @@
                 <tr>
                     <td>{r.reviewDetail}</td>
                     <td>{r.rating}</td>
-                    <td>{r.user.firstName}, {r.user.lastName}</td>
+                    <td>{r.user}</td>
                     <td>{r.reviewDate}</td>
                 </tr>
             {/each}

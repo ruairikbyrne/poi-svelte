@@ -11,7 +11,6 @@
 
     onMount(async () => {
         categoryList = await poiService.getCategories();
-        console.log("Categories found", categoryList);
     });
 
     async function addCategory() {
@@ -19,11 +18,9 @@
         console.log("Success output:", success);
         if (success) {
             categoryList = await poiService.getCategories();
-
         } else {
             errorMessage = "Adding new Category not completed - some error occurred";
         }
-
     }
 
 

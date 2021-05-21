@@ -15,15 +15,13 @@
 
     onMount(async () => {
         categoryList = await poiService.getCategories();
-
     });
 
-
-
     async function addLocation() {
-        const success = await poiService.addLocation(name, description, longitude, latitude, files[0], public_id, selected)
+        //const success = await poiService.addLocation(name, description, longitude, latitude, files[0], public_id, selected)
+        const success = await poiService.addLocation(name, description, longitude, latitude, selected)
         console.log("Selected Category: ", selected);
-        console.log("File object", files[0]);
+        //console.log("File object", files[0]);
         if (success) {
 
         } else {
@@ -58,7 +56,6 @@
                     {#if categoryList}
                     {#each categoryList as c}
                         <option value={c._id}>{c.categoryName}</option>
-
                     {/each}
                     {/if}
                 </select>
