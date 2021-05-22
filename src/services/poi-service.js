@@ -47,6 +47,7 @@ export class POIService {
     async login(email, password) {
         try {
             const response = await axios.post(`${this.baseUrl}/api/users/authenticate`, {email, password});
+            console.log("login response: ", response)
             return response.status == 200;
         } catch (error) {
             console.log("Svelte Login Error: ", error);
