@@ -1,7 +1,7 @@
 <script lang="ts">
     import {mainBar, navBar, subTitle, title} from "../stores";
     import crest1 from "/src/assets/crest1.jpg";
-    import SettingsForm from "../components/SettingsForm.Svelte";
+    import SettingsForm from "../components/SettingsForm.svelte";
 
     title.set("Visit Wexford");
     subTitle.set("Edits and then save your settings");
